@@ -44,3 +44,22 @@ button:hover {
     color: green;
     font-weight: bold;
 }
+.upload-btn {
+    display: inline-block;
+    background: #0066cc;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.upload-btn:hover {
+    background: #004c99;
+}
+
+#fileName {
+    display: block;
+    margin-top: 10px;
+    color: #555;
+}
