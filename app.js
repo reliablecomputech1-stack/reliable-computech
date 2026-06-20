@@ -36,12 +36,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   // Get user (Step 3 FIX)
-  const { data: { user }, error: userError } = await sb.auth.getUser();
-
-  if (!user) {
-    message.innerHTML = "Please login first!";
-    return;
-  }
+ 
 
   // FIXED OBJECT (comma + user_id added)
   const customer = {
