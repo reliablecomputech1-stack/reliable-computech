@@ -86,7 +86,14 @@ async function loadCustomers() {
   const customerBody = document.getElementById("customerBody");
   customerBody.innerHTML = "";
 
-  data.forEach(customer => {
+  const searchText = document.getElementById("searchInput").value.toLowerCase();
+
+data
+.filter(customer =>
+  (customer.name || "").toLowerCase().includes(searchText) ||
+  (customer.phone || "").toLowerCase().includes(searchText)
+)
+.forEach(customer => {
     customerBody.innerHTML += `
       <tr>
         <td>
@@ -112,5 +119,8 @@ document.getElementById("viewBtn").addEventListener("click", () => {
   message.innerHTML = "";
   document.getElementById("addCustomerSection").style.display = "none";
   document.getElementById("customerSection").style.display = "block";
+  loadCustomers();
+});
+document.getElementById("searchInput").addEventListener("input", () => {
   loadCustomers();
 });
