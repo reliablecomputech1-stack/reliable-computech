@@ -111,10 +111,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>
               <img src="${customer.photo_url}" class="customer-photo">
             </td>
-            <td contenteditable="true">${customer.name || ""}</td>
-            <td contenteditable="true">${customer.email || ""}</td>
-            <td contenteditable="true">${customer.phone || ""}</td>
-            <td contenteditable="true">${customer.address || ""}</td>
+         <td>${customer.name || ""}</td>
+<td>${customer.email || ""}</td>
+<td>${customer.phone || ""}</td>
+<td>${customer.address || ""}</td>
           </tr>
         `;
       });
