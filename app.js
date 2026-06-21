@@ -196,5 +196,26 @@ document.addEventListener("click", async (e) => {
 
     alert("Saved successfully!");
   }
+if (e.target.classList.contains("deleteBtn")) {
 
+  if (!confirm("Delete this customer?")) return;
+
+  const row = e.target.closest("tr");
+  const id = row.dataset.id;
+
+  const { error } = await sb
+    .from("customers")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.log(error);
+    alert("Delete failed!");
+    return;
+  }
+
+  row.remove();
+
+  alert("Customer deleted successfully!");
+}
 });
