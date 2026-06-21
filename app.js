@@ -202,30 +202,43 @@ document.addEventListener("click", async (e) => {
   // 🗑️ DELETE
   if (e.target.classList.contains("deleteBtn")) {
 
-    if (!confirm("Delete this customer?")) return;
+  if (!confirm("Delete this customer?")) return;
 
-    const row = e.target.closest("tr");
-    const id = row.dataset.id;
-    const fileName = row.dataset.file;
+  const row = e.target.closest("tr");
+  const id = row.dataset.id;
 
-    if (fileName) {
-      await sb.storage
-        .from("customer-photos")
-        .remove([fileName]);
-    }
+  // ✅ FIXED FILE NAME EXTRACTION
+  let fileName = row.dataset.file;
 
-    const { error } = await sb
-      .from("customers")
-      .delete()
-      .eq("id", id);
-
-    if (error) {
-      console.log(error);
-      alert(error.message);
-      return;
-    }
-
-    row.remove();
-    alert("Customer deleted successfully!");
+  // fallback (if old rows don't have dataset.file)
+  if (!fileName) {
+    const img = row.querySelector("img");
+    const url = new URL(img.src);
+    fileName = url.pathname.split("/").pop();
   }
+
+  // 1. delete DB FIRST (important)
+  const { error: dbError } = await sb
+    .from("customers")
+    .delete()
+    .eq("id", id);
+
+  if (dbError) {
+    console.log(dbError);
+    alert("DB delete failed!");
+    return;
+  }
+
+  // 2. delete image (non-blocking safe)
+  if (fileName) {
+    await sb.storage
+      .from("customer-photos")
+      .remove([fileName]);
+  }
+
+  // 3. remove from UI
+  row.remove();
+
+  alert("Customer deleted successfully!");
+}
 });
