@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - Reliable Computech</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<div id="msg"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
+const SUPABASE_KEY = "YOUR_ANON_KEY_HERE";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data, error } = await sb.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    document.getElementById("msg").innerText = error.message;
+    return;
+  }
+
+  // save session
+  localStorage.setItem("user", JSON.stringify(data.user));
+
+  // go to main app
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
