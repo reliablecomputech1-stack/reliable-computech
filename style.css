@@ -118,15 +118,15 @@ body {
 @media screen and (max-width: 768px) {
 
     h1 {
-        font-size: 56px;
+        font-size: 46px;
     }
 
     #addBtn,
     #viewBtn,
     .upload-btn,
     input {
-        font-size: 24px;
-        padding: 20px;
+        font-size: 18px;
+        padding: 14px;
     }
 
 }
