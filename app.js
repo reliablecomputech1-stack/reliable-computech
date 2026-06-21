@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: document.getElementById("phone").value,
       address: document.getElementById("address").value,
       photo_url: photoUrl
+        photo_file: fileName   // name
     };
 
     const { data, error } = await sb
