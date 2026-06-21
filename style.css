@@ -115,3 +115,43 @@ body {
 .deleteBtn:hover {
     background: #222 !important;
 }
+@media (max-width: 768px) {
+
+    body {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    button,
+    .upload-btn,
+    input {
+        font-size: 20px;
+        padding: 16px;
+    }
+
+    th, td {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .customer-photo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .editBtn,
+    .saveBtn,
+    .deleteBtn {
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+}
