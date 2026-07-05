@@ -9,12 +9,13 @@
 <script>
 const password = prompt("Enter Password");
 
-if (password === "computech123") {
-    document.body.style.display = "block";
-} else {
+if (password !== "computech123") {
     alert("Wrong Password!");
-    window.location.replace("about:blank");
+    document.documentElement.innerHTML = "";
+    throw new Error("Access Denied");
 }
+
+document.body.style.display = "block";
 </script>
 <h1>RELIABLE COMPUTECH</h1>
     <button id="addBtn">Add Customer</button>
