@@ -7,11 +7,16 @@
 </head>
 <body>
 <script>
-let password = prompt("Enter Password");
+if (sessionStorage.getItem("loggedIn") !== "yes") {
 
-while (password !== "computech123") {
-    alert("Wrong Password!");
-    password = prompt("Enter Password");
+    let password = prompt("Enter Password");
+
+    while (password !== "computech123") {
+        alert("Wrong Password!");
+        password = prompt("Enter Password");
+    }
+
+    sessionStorage.setItem("loggedIn", "yes");
 }
 </script>
 <h1>RELIABLE COMPUTECH</h1>
