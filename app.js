@@ -2,30 +2,32 @@ const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => 
+{
+    const form = document.getElementById("customerForm");
+    const message = document.getElementById("message");
 
-  const form = document.getElementById("customerForm");
-  const message = document.getElementById("message");
+    // =======================
+    // ADD CUSTOMER
+    // =======================
+    form.addEventListener("submit", async (e) => 
+    {
+          e.preventDefault();
 
-  // =======================
-  // ADD CUSTOMER
-  // =======================
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+          const photoFile = document.getElementById("photo").files[0];
 
-    const photoFile = document.getElementById("photo").files[0];
+          let photoUrl = "";
+            let fileName = "";
 
-    let photoUrl = "";
-    let fileName = "";
+          if (photoFile)
+          {  
+                  fileName = Date.now() + "_" + photoFile.name;
 
-    if (photoFile) {
-      fileName = Date.now() + "_" + photoFile.name;
+                  const { error: uploadError } = await sb.storage
+                  .from("customer-photos")
+                  .upload(fileName, photoFile);
 
-      const { error: uploadError } = await sb.storage
-        .from("customer-photos")
-        .upload(fileName, photoFile);
-
-      if (uploadError) {
+                  if (uploadError) {
         console.log("UPLOAD ERROR:", uploadError);
         message.innerHTML = "Photo upload failed!";
         return;
@@ -36,7 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .getPublicUrl(fileName);
 
       photoUrl = data.publicUrl;
+            alert("✅ Photo uploaded successfully");
     }
+      
 const customer = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
