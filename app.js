@@ -264,7 +264,13 @@ document.addEventListener("click", async (e) => {
       cleanPhone = "91" + cleanPhone;
     }
 
-    const msg = `Hi ${name}, thank you for visiting Reliable Computech.`;
+    const msg = `Hi ${name},
+
+Thank you for visiting RELIABLE COMPUTECH.
+
+Your job is scheduled and will be completed soon.
+
+We will notify you once the work is complete.`;
 
     window.open(
       `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
