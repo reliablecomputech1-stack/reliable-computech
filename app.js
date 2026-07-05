@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .getPublicUrl(fileName);
 
       photoUrl = data.publicUrl;
+      // Show upload success message
+message.innerHTML = "✅ Photo uploaded successfully!";
     }
 
     const customer = {
