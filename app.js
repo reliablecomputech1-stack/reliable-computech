@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("customerForm");
   const message = document.getElementById("message");
-  
+  let photoUrl = "";
+let fileName = "";
 
   // =======================
   // ADD CUSTOMER
