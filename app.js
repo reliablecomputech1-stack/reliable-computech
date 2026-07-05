@@ -38,8 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       photoUrl = data.publicUrl;
       // Show upload success message
-document.getElementById("fileName").textContent = "✅ Photo uploaded successfully";    }
-
+alert("UPLOAD FINISHED");
     const customer = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
