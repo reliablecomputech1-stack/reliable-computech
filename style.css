@@ -97,7 +97,8 @@ body {
 }
 .editBtn,
 .saveBtn,
-.deleteBtn {
+.deleteBtn,
+.waBtn {
     width: auto;
     padding: 6px 10px;
     margin-top: 0;
@@ -112,7 +113,8 @@ body {
 
 .editBtn:hover,
 .saveBtn:hover,
-.deleteBtn:hover {
+.deleteBtn:hover,
+.waBtn:hover {
     background: #222 !important;
 }
 @media screen and (max-width: 768px) {
