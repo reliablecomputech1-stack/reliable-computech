@@ -121,19 +121,42 @@ const customer = {
   // BUTTONS
   // =======================
   document.getElementById("addBtn").addEventListener("click", () => {
-    message.innerHTML = "";
-    document.getElementById("addCustomerSection").style.display = "block";
-    document.getElementById("customerSection").style.display = "none";
-    document.getElementById("searchInput").style.display = "none";
-  });
 
-  document.getElementById("viewBtn").addEventListener("click", () => {
-    message.innerHTML = "";
-    document.getElementById("addCustomerSection").style.display = "none";
-    document.getElementById("customerSection").style.display = "block";
+  message.innerHTML = "";
+
+  const addSection = document.getElementById("addCustomerSection");
+  const viewSection = document.getElementById("customerSection");
+
+  const isOpen = addSection.style.display === "block";
+
+  if (isOpen) {
+    addSection.style.display = "none";
+  } else {
+    addSection.style.display = "block";
+    viewSection.style.display = "none";
+    document.getElementById("searchInput").style.display = "none";
+  }
+});
+
+ document.getElementById("viewBtn").addEventListener("click", () => {
+
+  message.innerHTML = "";
+
+  const addSection = document.getElementById("addCustomerSection");
+  const viewSection = document.getElementById("customerSection");
+
+  const isOpen = viewSection.style.display === "block";
+
+  if (isOpen) {
+    viewSection.style.display = "none";
+    document.getElementById("searchInput").style.display = "none";
+  } else {
+    viewSection.style.display = "block";
+    addSection.style.display = "none";
     document.getElementById("searchInput").style.display = "block";
     loadCustomers();
-  });
+  }
+});
 
   document.getElementById("searchInput").addEventListener("input", loadCustomers);
 });
