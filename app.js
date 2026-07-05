@@ -6,16 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("customerForm");
   const message = document.getElementById("message");
-  const photoInput = document.getElementById("photo");
-const fileNameSpan = document.getElementById("fileName");
-
-photoInput.addEventListener("change", () => {
-  if (photoInput.files.length > 0) {
-    fileNameSpan.textContent = photoInput.files[0].name;
-  } else {
-    fileNameSpan.textContent = "No file selected";
-  }
-});
+  
 
   // =======================
   // ADD CUSTOMER
