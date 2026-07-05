@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .getPublicUrl(fileName);
 
       photoUrl = data.publicUrl;
-
+    }
 const customer = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
