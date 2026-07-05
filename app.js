@@ -248,7 +248,28 @@ document.addEventListener("click", async (e) => {
       }
     }
 
-    row.remove();
+   row.remove();
     alert("Deleted successfully!");
   }
+
+  // WHATSAPP
+  if (e.target.classList.contains("waBtn")) {
+
+    const row = e.target.closest("tr");
+    const phone = row.querySelector(".phone").innerText;
+    const name = row.querySelector(".name").innerText;
+
+    let cleanPhone = phone.replace(/\D/g, "");
+    if (cleanPhone.length === 10) {
+      cleanPhone = "91" + cleanPhone;
+    }
+
+    const msg = `Hi ${name}, thank you for visiting Reliable Computech.`;
+
+    window.open(
+      `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
+  }
+
 });
