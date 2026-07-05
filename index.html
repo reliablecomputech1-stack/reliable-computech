@@ -7,11 +7,11 @@
 </head>
 <body style="display:none;">
 <script>
-const password = prompt("Enter Password");
+let password = prompt("Enter Password");
 
-if (password !== "computech123") {
+while (password !== "computech123") {
     alert("Wrong Password!");
-    location.reload();
+    password = prompt("Enter Password");
 }
 </script>
 <h1>RELIABLE COMPUTECH</h1>
