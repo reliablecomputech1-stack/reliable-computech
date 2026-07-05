@@ -36,9 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .getPublicUrl(fileName);
 
       photoUrl = data.publicUrl;
-      // Show upload success message
+
+// Show upload success message
 alert("UPLOAD FINISHED");
-    const customer = {
+
+}   // <-- THIS WAS MISSING
+
+const customer = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
       phone: document.getElementById("phone").value,
