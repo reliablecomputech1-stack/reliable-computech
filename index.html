@@ -7,13 +7,14 @@
 </head>
 <body>
 <script>
+const APP_PASSWORD = "computech123";
+
 if (sessionStorage.getItem("loggedIn") !== "yes") {
 
     let password = prompt("Enter Password");
 
-    while (password !== "computech123") {
-        alert("Wrong Password!");
-        password = prompt("Enter Password");
+    while (password !== APP_PASSWORD) {
+        password = prompt("Wrong Password!\n\nEnter Password");
     }
 
     sessionStorage.setItem("loggedIn", "yes");
