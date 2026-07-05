@@ -107,11 +107,14 @@ const customer = {
           <td class="email">${customer.email || ""}</td>
           <td class="phone">${customer.phone || ""}</td>
           <td class="address">${customer.address || ""}</td>
-          <td>
-            <button class="editBtn">✏️</button>
-            <button class="saveBtn" style="display:none;">💾</button>
-            <button class="deleteBtn">🗑️</button>
-          </td>
+      <td class="actionCell">
+
+  <button class="editBtn">✏️</button>
+  <button class="saveBtn" style="display:none;">💾</button>
+  <button class="deleteBtn">🗑️</button>
+  <button class="waBtn">💬</button>
+
+</td>
         </tr>
       `;
     });
