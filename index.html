@@ -11,11 +11,8 @@ const password = prompt("Enter Password");
 
 if (password !== "computech123") {
     alert("Wrong Password!");
-    document.documentElement.innerHTML = "";
-    throw new Error("Access Denied");
+    location.reload();
 }
-
-document.body.style.display = "block";
 </script>
 <h1>RELIABLE COMPUTECH</h1>
     <button id="addBtn">Add Customer</button>
