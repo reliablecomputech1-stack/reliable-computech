@@ -134,8 +134,8 @@ const { error } = await sb.from("customers").insert([customer]);
     const customerBody = document.getElementById("customerBody");
     customerBody.innerHTML = "";
 
-    const searchText = document.getElementById("searchInput").value.toLowerCase();
-
+const searchInput = document.getElementById("searchInput");
+const searchText = searchInput ? searchInput.value.toLowerCase() : "";
     const filtered = data.filter(c =>
       (c.name || "").toLowerCase().includes(searchText) ||
 (c.phone || "").toLowerCase().includes(searchText) ||
