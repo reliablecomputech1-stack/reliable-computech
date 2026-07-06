@@ -134,7 +134,9 @@ const customer = {
 
     const filtered = data.filter(c =>
       (c.name || "").toLowerCase().includes(searchText) ||
-(c.phone || "").toLowerCase().includes(searchText)    );
+(c.phone || "").toLowerCase().includes(searchText) ||
+(c.email || "").toLowerCase().includes(searchText) ||
+(c.address || "").toLowerCase().includes(searchText)    );
 
     document.getElementById("customerCountHeading").innerText =
       `Customers (${filtered.length})`;
