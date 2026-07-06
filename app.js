@@ -1,6 +1,13 @@
 const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const APP_PASSWORD = "rctech321";
+
+function verifyPassword() {
+  const password = prompt("Enter Password to continue deletion:");
+  if (!password) return false;
+  return password === APP_PASSWORD;
+}
 
 async function compressImage(file, maxWidth = 1200, quality = 0.8) {
   return new Promise((resolve) => {
