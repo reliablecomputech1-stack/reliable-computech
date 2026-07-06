@@ -161,7 +161,8 @@ body {
     margin-bottom: 8px;
 }
 .waIcon {
-    width: 18px;
-    height: 18px;
-    display: block;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
 }
