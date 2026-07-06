@@ -220,9 +220,9 @@ row.querySelectorAll(".name, .contact, .description, .status")
   if (e.target.classList.contains("saveBtn")) {
     const row = e.target.closest("tr");
     const id = row.dataset.id;
-
-    const updated = {
-      name: row.querySelector(".name").innerText,
+const updated = {
+  name: row.querySelector(".name").innerText,
+  contact: row.querySelector(".contact").innerText,
   description: row.querySelector(".description").innerText,
   status: row.querySelector(".status").innerText
 };
