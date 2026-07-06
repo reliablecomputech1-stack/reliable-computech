@@ -246,8 +246,7 @@ const updated = {
       return;
     }
 
-  row.querySelectorAll(".name, .contact, .description, .status")
-  .forEach(td => td.contentEditable = "false");
+row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forEach(td => td.contentEditable = "false");
     row.querySelector(".editBtn").style.display = "inline-block";
     row.querySelector(".saveBtn").style.display = "none";
 
