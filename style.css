@@ -141,3 +141,10 @@ body {
 .row input{
     flex:1;
 }
+.contact-line {
+    margin-bottom: 8px;
+}
+
+.contact-line:last-child {
+    margin-bottom: 0;
+}
