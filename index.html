@@ -1,324 +1,89 @@
-const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
-const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RELIABLE COMPUTECH</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-async function compressImage(file, maxWidth = 1200, quality = 0.8) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const reader = new FileReader();
+<body>
 
-    reader.onload = (e) => {
-      img.src = e.target.result;
-    };
+  <script>
+    const APP_PASSWORD = "rctech321";
 
-    img.onload = () => {
-      let width = img.width;
-      let height = img.height;
+    if (sessionStorage.getItem("loggedIn") !== "yes") {
+      let password = prompt("Enter Password");
 
-      if (width > maxWidth) {
-        height = height * (maxWidth / width);
-        width = maxWidth;
+      while (password !== APP_PASSWORD) {
+        password = prompt("Wrong Password!\n\nEnter Password");
       }
 
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, width, height);
-
-      canvas.toBlob((blob) => {
-        resolve(new File([blob], file.name, { type: "image/jpeg" }));
-      }, "image/jpeg", quality);
-    };
-
-    reader.readAsDataURL(file);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("customerForm");
-  const message = document.getElementById("message");
-
-  document.getElementById("photo").addEventListener("change", function () {
-    const fileNameSpan = document.getElementById("fileName");
-
-    if (this.files.length > 0) {
-      fileNameSpan.textContent = this.files[0].name;
-    } else {
-      fileNameSpan.textContent = "No file selected";
+      sessionStorage.setItem("loggedIn", "yes");
     }
-  });
+  </script>
 
-  // =======================
-  // ADD CUSTOMER
-  // =======================
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  <h1>RELIABLE COMPUTECH</h1>
 
-    let photoFile = document.getElementById("photo").files[0];
-    let photoUrl = "";
-    let fileName = "";
+  <button id="addBtn">Add Customer</button>
+  <button id="viewBtn">View Customers</button>
 
-    if (photoFile) {
-      photoFile = await compressImage(photoFile);
-      fileName = Date.now() + "_" + photoFile.name;
+  <div id="addCustomerSection" style="display:none;">
+    <form id="customerForm">
 
-      const { error: uploadError } = await sb.storage
-        .from("customer-photos")
-        .upload(fileName, photoFile);
+      <div class="row">
+        <input type="text" id="name" placeholder="Customer Name" required>
+        <input type="email" id="email" placeholder="Email">
+      </div>
 
-      if (uploadError) {
-        console.log("UPLOAD ERROR:", uploadError);
-        message.innerHTML = "Photo upload failed!";
-        return;
-      }
+      <div class="row">
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="address" placeholder="Address">
+      </div>
 
-      const { data } = sb.storage
-        .from("customer-photos")
-        .getPublicUrl(fileName);
+      <input type="text" id="description" placeholder="Description">
 
-      photoUrl = data.publicUrl;
-      alert("✅ Photo uploaded successfully");
-    }
+      <div class="row">
+        <input type="text" id="status" placeholder="Status">
+        <input type="text" id="estimate" placeholder="Estimate">
+      </div>
 
-    const customer = {
-      name: document.getElementById("name").value,
-      phone: document.getElementById("phone").value,
-      email: document.getElementById("email").value,
-      address: document.getElementById("address").value,
-      description: document.getElementById("description").value,
-      status: document.getElementById("status").value,
-      estimate: document.getElementById("estimate").value,
-      photo_url: photoUrl,
-      photo_file: fileName
-    };
+      <label for="photo" class="upload-btn">Upload Photo</label>
+      <input type="file" id="photo" hidden>
+      <span id="fileName">No file selected</span>
 
-    const { error } = await sb.from("customers").insert([customer]);
+      <button type="submit">Save Customer</button>
 
-    if (error) {
-      console.log("INSERT ERROR:", error);
-      message.innerHTML = error.message;
-      return;
-    }
+    </form>
+  </div>
 
-    message.innerHTML = "Customer saved successfully!";
-    form.reset();
-    loadCustomers();
-  });
+  <div id="message"></div>
 
-  // =======================
-  // LOAD CUSTOMERS
-  // =======================
-  async function loadCustomers() {
-    const { data, error } = await sb
-      .from("customers")
-      .select("*");
+  <input type="text" id="searchInput"
+         placeholder="Search by Name or Phone"
+         style="display:none;">
 
-    if (error) {
-      console.log("LOAD ERROR:", error);
-      return;
-    }
+  <div id="customerSection" style="display:none;">
+    <h2 id="customerCountHeading">Customers (0)</h2>
 
-    const customerBody = document.getElementById("customerBody");
-    customerBody.innerHTML = "";
-
-    const searchText = document.getElementById("searchInput").value.toLowerCase();
-
-    const filtered = data.filter(c =>
-      (c.name || "").toLowerCase().includes(searchText) ||
-      (c.phone || "").toLowerCase().includes(searchText) ||
-      (c.email || "").toLowerCase().includes(searchText) ||
-      (c.address || "").toLowerCase().includes(searchText)
-    );
-
-    document.getElementById("customerCountHeading").innerText =
-      `Customers (${filtered.length})`;
-
-    filtered.forEach(customer => {
-      customerBody.innerHTML += `
-        <tr data-id="${customer.id}" data-file="${customer.photo_file || ""}">
-          <td><img src="${customer.photo_url}" class="customer-photo"></td>
-          <td class="name">${customer.name || ""}</td>
-          <td class="contact">
-            <div class="contact-line"><strong>Phone:</strong> ${customer.phone || ""}</div>
-            <div class="contact-line"><strong>Email:</strong> ${customer.email || ""}</div>
-            <div class="contact-line"><strong>Address:</strong> ${customer.address || ""}</div>
-          </td>
-          <td class="description">${customer.description || ""}</td>
-          <td class="status">${customer.status || ""}</td>
-          <td class="estimate">${customer.estimate || ""}</td>
-          <td class="actionCell">
-            <button class="editBtn">✏️</button>
-            <button class="saveBtn" style="display:none;">💾</button>
-            <button class="deleteBtn">🗑️</button>
-            <button class="waBtn">💬</button>
-          </td>
+    <table id="customerTable">
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Estimate</th>
+          <th>Action</th>
         </tr>
-      `;
-    });
-  }
+      </thead>
 
-  // =======================
-  // BUTTONS
-  // =======================
-  document.getElementById("addBtn").addEventListener("click", () => {
-    message.innerHTML = "";
+      <tbody id="customerBody"></tbody>
+    </table>
+  </div>
 
-    const addSection = document.getElementById("addCustomerSection");
-    const viewSection = document.getElementById("customerSection");
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
 
-    const isOpen = addSection.style.display === "block";
-
-    if (isOpen) {
-      addSection.style.display = "none";
-    } else {
-      addSection.style.display = "block";
-      viewSection.style.display = "none";
-      document.getElementById("searchInput").style.display = "none";
-    }
-  });
-
-  document.getElementById("viewBtn").addEventListener("click", () => {
-    message.innerHTML = "";
-
-    const addSection = document.getElementById("addCustomerSection");
-    const viewSection = document.getElementById("customerSection");
-
-    const isOpen = viewSection.style.display === "block";
-
-    if (isOpen) {
-      viewSection.style.display = "none";
-      document.getElementById("searchInput").style.display = "none";
-    } else {
-      viewSection.style.display = "block";
-      addSection.style.display = "none";
-      document.getElementById("searchInput").style.display = "block";
-      loadCustomers();
-    }
-  });
-
-  document.getElementById("searchInput").addEventListener("input", loadCustomers);
-});
-
-// =======================
-// GLOBAL CLICK EVENTS
-// =======================
-document.addEventListener("click", async (e) => {
-
-  // EDIT
-  if (e.target.classList.contains("editBtn")) {
-    const row = e.target.closest("tr");
-
-    row.querySelectorAll(".name, .description, .status, .estimate")
-      .forEach(td => td.contentEditable = "true");
-
-    row.querySelector(".editBtn").style.display = "none";
-    row.querySelector(".saveBtn").style.display = "inline-block";
-  }
-
-  // SAVE
-  if (e.target.classList.contains("saveBtn")) {
-    const row = e.target.closest("tr");
-    const id = row.dataset.id;
-
-    const updated = {
-      name: row.querySelector(".name").innerText,
-      contact: row.querySelector(".contact").innerText,
-      description: row.querySelector(".description").innerText,
-      status: row.querySelector(".status").innerText,
-      estimate: row.querySelector(".estimate").innerText
-    };
-
-    const { error } = await sb.from("customers").update(updated).eq("id", id);
-
-    if (error) {
-      console.log("UPDATE ERROR:", error);
-      alert(error.message);
-      return;
-    }
-
-    row.querySelectorAll(".name, .contact, .description, .status, .estimate")
-      .forEach(td => td.contentEditable = "false");
-
-    row.querySelector(".editBtn").style.display = "inline-block";
-    row.querySelector(".saveBtn").style.display = "none";
-
-    alert("Saved!");
-  }
-
-  // DELETE
-  if (e.target.classList.contains("deleteBtn")) {
-    const row = e.target.closest("tr");
-    const id = row?.dataset?.id;
-    const fileName = row?.dataset?.file;
-
-    if (!id) {
-      alert("Invalid row id");
-      return;
-    }
-
-    if (!confirm("Delete this customer?")) return;
-
-    const password = prompt("Enter Password");
-
-    if (password !== APP_PASSWORD) {
-      alert("Wrong Password!");
-      return;
-    }
-
-    const { error: dbError } = await sb
-      .from("customers")
-      .delete()
-      .eq("id", id);
-
-    if (dbError) {
-      console.log("DELETE DB ERROR:", dbError);
-      alert(dbError.message);
-      return;
-    }
-
-    if (fileName) {
-      const { error: storageError } = await sb
-        .storage
-        .from("customer-photos")
-        .remove([fileName]);
-
-      if (storageError) {
-        console.log("STORAGE DELETE ERROR:", storageError);
-      }
-    }
-
-    row.remove();
-    alert("Deleted successfully!");
-  }
-
-  // WHATSAPP
-  if (e.target.classList.contains("waBtn")) {
-    const row = e.target.closest("tr");
-
-    const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
-    const name = row.querySelector(".name").innerText;
-    const description = row.querySelector(".description").innerText;
-    const estimate = row.querySelector(".estimate").innerText;
-
-    let cleanPhone = phone.replace(/\D/g, "");
-
-    if (cleanPhone.length === 10) {
-      cleanPhone = "91" + cleanPhone;
-    }
-
-    const msg = `Hi ${name},
-
-Thank you for visiting RELIABLE COMPUTECH.
-
-Your job is scheduled and will be completed soon.
-
-We will notify you once the work is complete.`;
-
-    window.open(
-      `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
-      "_blank"
-    );
-  }
-});
+</body>
+</html>
