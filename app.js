@@ -299,8 +299,8 @@ document.addEventListener("click", async (e) => {
 
     const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
     const name = row.querySelector(".name").innerText;
-    const description = row.querySelector(".description").innerText;
-    const estimate = row.querySelector(".estimate").innerText;
+  const description = row.querySelector(".description").innerText;
+const estimate = row.querySelector(".estimate").innerText;
 
     let cleanPhone = phone.replace(/\D/g, "");
 
@@ -312,9 +312,13 @@ document.addEventListener("click", async (e) => {
 
 Thank you for visiting RELIABLE COMPUTECH.
 
-Your job is scheduled and will be completed soon.
+Your requested work of "${description}" will be completed soon.
 
-We will notify you once the work is complete.`;
+The estimated cost for this job is ₹${estimate}.
+
+We will notify you once the work is complete.
+
+Thank you for choosing RELIABLE COMPUTECH.`;
 
     window.open(
       `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
