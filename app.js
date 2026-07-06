@@ -328,4 +328,34 @@ Thank you for choosing RELIABLE COMPUTECH.`;
       "_blank"
     );
   }
-});
+// SMS
+if (e.target.classList.contains("smsBtn")) {
+  const row = e.target.closest("tr");
+
+  const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
+  const name = row.querySelector(".name").innerText;
+  const description = row.querySelector(".description").innerText;
+  const estimate = row.querySelector(".estimate").innerText;
+
+  let cleanPhone = phone.replace(/\D/g, "");
+
+  if (cleanPhone.length === 10) {
+    cleanPhone = "91" + cleanPhone;
+  }
+
+  const msg = `Hi ${name},
+
+Thank you for visiting RELIABLE COMPUTECH.
+
+Your requested work of "${description}" will be completed soon.
+
+The estimated cost for this job is ₹${estimate}.
+
+We will notify you once the work is complete.
+
+Thank you for choosing RELIABLE COMPUTECH.`;
+
+  window.location.href =
+    `sms:${cleanPhone}?body=${encodeURIComponent(msg)}`;
+}
+  });
