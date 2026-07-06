@@ -98,9 +98,7 @@ const customer = {
   photo_url: photoUrl,
   photo_file: fileName
 };
-  photo_url: photoUrl,
-  photo_file: fileName
-};
+ 
 
     const { error } = await sb.from("customers").insert([customer]);
 
