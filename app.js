@@ -271,7 +271,12 @@ row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forE
     }
 
    if (!confirm("Delete this customer?")) return;
+const isVerified = verifyPassword();
 
+if (!isVerified) {
+  alert("Wrong Password!");
+  return;
+}
 // Ask password again before deleting
 
 
