@@ -2,32 +2,21 @@ const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const APP_PASSWORD = "rctech321";
-
-/* =======================
-   PASSWORD CHECK
-======================= */
-function verifyPassword() {
-  const password = prompt("Enter Password:");
-  return password === APP_PASSWORD;
-}
-
-/* =======================
-   IMAGE COMPRESSION
-======================= */
 async function compressImage(file, maxWidth = 1200, quality = 0.8) {
   return new Promise((resolve) => {
     const img = new Image();
     const reader = new FileReader();
 
-    reader.onload = (e) => (img.src = e.target.result);
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
 
     img.onload = () => {
       let width = img.width;
       let height = img.height;
 
       if (width > maxWidth) {
-        height *= maxWidth / width;
+        height = height * (maxWidth / width);
         width = maxWidth;
       }
 
@@ -47,81 +36,50 @@ async function compressImage(file, maxWidth = 1200, quality = 0.8) {
   });
 }
 
-/* =======================
-   LOAD CUSTOMERS
-======================= */
-async function loadCustomers() {
-  const { data, error } = await sb.from("customers").select("*");
-
-  if (error) {
-    console.log(error);
-    return;
-  }
-
-  const tbody = document.getElementById("customerBody");
-  tbody.innerHTML = "";
-
-  const search = document.getElementById("searchInput")?.value.toLowerCase() || "";
-
-  const filtered = data.filter((c) =>
-    (c.name || "").toLowerCase().includes(search) ||
-    (c.phone || "").toLowerCase().includes(search) ||
-    (c.email || "").toLowerCase().includes(search) ||
-    (c.address || "").toLowerCase().includes(search)
-  );
-
-  document.getElementById("customerCountHeading").innerText =
-    `Customers (${filtered.length})`;
-
-  filtered.forEach((c) => {
-    tbody.innerHTML += `
-      <tr data-id="${c.id}" data-file="${c.photo_file || ""}">
-        <td><img src="${c.photo_url || ""}" width="50"></td>
-        <td class="name">${c.name || ""}</td>
-        <td class="phone">${c.phone || ""}</td>
-        <td class="email">${c.email || ""}</td>
-        <td class="description">${c.description || ""}</td>
-        <td class="status">${c.status || ""}</td>
-        <td class="estimate">${c.estimate || ""}</td>
-        <td>
-          <button class="editBtn">✏️</button>
-          <button class="saveBtn" style="display:none;">💾</button>
-          <button class="deleteBtn">🗑️</button>
-          <button class="waBtn">💬</button>
-        </td>
-      </tr>
-    `;
-  });
-}
-
-/* =======================
-   INIT
-======================= */
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("customerForm");
   const message = document.getElementById("message");
 
-  loadCustomers();
+  document.getElementById("photo").addEventListener("change", function () {
+    const fileNameSpan = document.getElementById("fileName");
 
-  /* SEARCH */
-  document.getElementById("searchInput")?.addEventListener("input", loadCustomers);
+    if (this.files.length > 0) {
+      fileNameSpan.textContent = this.files[0].name;
+    } else {
+      fileNameSpan.textContent = "No file selected";
+    }
+  });
 
-  /* ADD CUSTOMER */
+  // =======================
+  // ADD CUSTOMER
+  // =======================
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    let file = document.getElementById("photo").files[0];
+    let photoFile = document.getElementById("photo").files[0];
     let photoUrl = "";
     let fileName = "";
 
-    if (file) {
-      file = await compressImage(file);
-      fileName = Date.now() + "_" + file.name;
+    if (photoFile) {
+      photoFile = await compressImage(photoFile);
+      fileName = Date.now() + "_" + photoFile.name;
 
-      await sb.storage.from("customer-photos").upload(fileName, file);
+      const { error: uploadError } = await sb.storage
+        .from("customer-photos")
+        .upload(fileName, photoFile);
 
-      const { data } = sb.storage.from("customer-photos").getPublicUrl(fileName);
+      if (uploadError) {
+        console.log("UPLOAD ERROR:", uploadError);
+        message.innerHTML = "Photo upload failed!";
+        return;
+      }
+
+      const { data } = sb.storage
+        .from("customer-photos")
+        .getPublicUrl(fileName);
+
       photoUrl = data.publicUrl;
+      alert("✅ Photo uploaded successfully");
     }
 
     const customer = {
@@ -133,94 +91,234 @@ document.addEventListener("DOMContentLoaded", () => {
       status: document.getElementById("status").value,
       estimate: document.getElementById("estimate").value,
       photo_url: photoUrl,
-      photo_file: fileName,
+      photo_file: fileName
     };
 
     const { error } = await sb.from("customers").insert([customer]);
 
     if (error) {
-      message.innerText = error.message;
+      console.log("INSERT ERROR:", error);
+      message.innerHTML = error.message;
       return;
     }
 
+    message.innerHTML = "Customer saved successfully!";
     form.reset();
     loadCustomers();
   });
 
-  /* ADD / VIEW TOGGLE */
-  document.getElementById("addBtn").onclick = () => {
-    document.getElementById("addCustomerSection").style.display = "block";
-    document.getElementById("customerSection").style.display = "none";
-  };
+  // =======================
+  // LOAD CUSTOMERS
+  // =======================
+  async function loadCustomers() {
+    const { data, error } = await sb
+      .from("customers")
+      .select("*");
 
-  document.getElementById("viewBtn").onclick = () => {
-    document.getElementById("addCustomerSection").style.display = "none";
-    document.getElementById("customerSection").style.display = "block";
-    loadCustomers();
-  };
+    if (error) {
+      console.log("LOAD ERROR:", error);
+      return;
+    }
+
+    const customerBody = document.getElementById("customerBody");
+    customerBody.innerHTML = "";
+
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+
+    const filtered = data.filter(c =>
+      (c.name || "").toLowerCase().includes(searchText) ||
+      (c.phone || "").toLowerCase().includes(searchText) ||
+      (c.email || "").toLowerCase().includes(searchText) ||
+      (c.address || "").toLowerCase().includes(searchText)
+    );
+
+    document.getElementById("customerCountHeading").innerText =
+      `Customers (${filtered.length})`;
+
+    filtered.forEach(customer => {
+      customerBody.innerHTML += `
+        <tr data-id="${customer.id}" data-file="${customer.photo_file || ""}">
+          <td><img src="${customer.photo_url}" class="customer-photo"></td>
+          <td class="name">${customer.name || ""}</td>
+          <td class="contact">
+            <div class="contact-line"><strong>Phone:</strong> ${customer.phone || ""}</div>
+            <div class="contact-line"><strong>Email:</strong> ${customer.email || ""}</div>
+            <div class="contact-line"><strong>Address:</strong> ${customer.address || ""}</div>
+          </td>
+          <td class="description">${customer.description || ""}</td>
+          <td class="status">${customer.status || ""}</td>
+          <td class="estimate">${customer.estimate || ""}</td>
+          <td class="actionCell">
+            <button class="editBtn">✏️</button>
+            <button class="saveBtn" style="display:none;">💾</button>
+            <button class="deleteBtn">🗑️</button>
+            <button class="waBtn">💬</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  // =======================
+  // BUTTONS
+  // =======================
+  document.getElementById("addBtn").addEventListener("click", () => {
+    message.innerHTML = "";
+
+    const addSection = document.getElementById("addCustomerSection");
+    const viewSection = document.getElementById("customerSection");
+
+    const isOpen = addSection.style.display === "block";
+
+    if (isOpen) {
+      addSection.style.display = "none";
+    } else {
+      addSection.style.display = "block";
+      viewSection.style.display = "none";
+      document.getElementById("searchInput").style.display = "none";
+    }
+  });
+
+  document.getElementById("viewBtn").addEventListener("click", () => {
+    message.innerHTML = "";
+
+    const addSection = document.getElementById("addCustomerSection");
+    const viewSection = document.getElementById("customerSection");
+
+    const isOpen = viewSection.style.display === "block";
+
+    if (isOpen) {
+      viewSection.style.display = "none";
+      document.getElementById("searchInput").style.display = "none";
+    } else {
+      viewSection.style.display = "block";
+      addSection.style.display = "none";
+      document.getElementById("searchInput").style.display = "block";
+      loadCustomers();
+    }
+  });
+
+  document.getElementById("searchInput").addEventListener("input", loadCustomers);
 });
 
-/* =======================
-   GLOBAL BUTTON ACTIONS
-======================= */
+// =======================
+// GLOBAL CLICK EVENTS
+// =======================
 document.addEventListener("click", async (e) => {
-  const row = e.target.closest("tr");
 
-  /* EDIT */
+  // EDIT
   if (e.target.classList.contains("editBtn")) {
-    row.querySelectorAll("td").forEach(td => td.contentEditable = true);
-    e.target.style.display = "none";
+    const row = e.target.closest("tr");
+
+    row.querySelectorAll(".name, .description, .status, .estimate")
+      .forEach(td => td.contentEditable = "true");
+
+    row.querySelector(".editBtn").style.display = "none";
     row.querySelector(".saveBtn").style.display = "inline-block";
   }
 
-  /* SAVE */
+  // SAVE
   if (e.target.classList.contains("saveBtn")) {
+    const row = e.target.closest("tr");
     const id = row.dataset.id;
 
     const updated = {
       name: row.querySelector(".name").innerText,
-      phone: row.querySelector(".phone").innerText,
-      email: row.querySelector(".email").innerText,
+      contact: row.querySelector(".contact").innerText,
       description: row.querySelector(".description").innerText,
       status: row.querySelector(".status").innerText,
-      estimate: row.querySelector(".estimate").innerText,
+      estimate: row.querySelector(".estimate").innerText
     };
 
-    await sb.from("customers").update(updated).eq("id", id);
+    const { error } = await sb.from("customers").update(updated).eq("id", id);
 
-    row.querySelectorAll("td").forEach(td => td.contentEditable = false);
-    e.target.style.display = "none";
+    if (error) {
+      console.log("UPDATE ERROR:", error);
+      alert(error.message);
+      return;
+    }
+
+    row.querySelectorAll(".name, .contact, .description, .status, .estimate")
+      .forEach(td => td.contentEditable = "false");
+
     row.querySelector(".editBtn").style.display = "inline-block";
+    row.querySelector(".saveBtn").style.display = "none";
 
-    loadCustomers();
+    alert("Saved!");
   }
 
-  /* DELETE */
+  // DELETE
   if (e.target.classList.contains("deleteBtn")) {
-    const id = row.dataset.id;
-    const file = row.dataset.file;
+    const row = e.target.closest("tr");
+    const id = row?.dataset?.id;
+    const fileName = row?.dataset?.file;
 
-    if (!confirm("Delete?")) return;
-    if (!verifyPassword()) return alert("Wrong password");
+    if (!id) {
+      alert("Invalid row id");
+      return;
+    }
 
-    await sb.from("customers").delete().eq("id", id);
+    if (!confirm("Delete this customer?")) return;
 
-    if (file) {
-      await sb.storage.from("customer-photos").remove([file]);
+    const password = prompt("Enter Password");
+
+    if (password !== APP_PASSWORD) {
+      alert("Wrong Password!");
+      return;
+    }
+
+    const { error: dbError } = await sb
+      .from("customers")
+      .delete()
+      .eq("id", id);
+
+    if (dbError) {
+      console.log("DELETE DB ERROR:", dbError);
+      alert(dbError.message);
+      return;
+    }
+
+    if (fileName) {
+      const { error: storageError } = await sb
+        .storage
+        .from("customer-photos")
+        .remove([fileName]);
+
+      if (storageError) {
+        console.log("STORAGE DELETE ERROR:", storageError);
+      }
     }
 
     row.remove();
+    alert("Deleted successfully!");
   }
 
-  /* WHATSAPP */
+  // WHATSAPP
   if (e.target.classList.contains("waBtn")) {
-    const phone = row.querySelector(".phone").innerText.replace(/\D/g, "");
+    const row = e.target.closest("tr");
+
+    const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
     const name = row.querySelector(".name").innerText;
-    const desc = row.querySelector(".description").innerText;
-    const est = row.querySelector(".estimate").innerText;
+    const description = row.querySelector(".description").innerText;
+    const estimate = row.querySelector(".estimate").innerText;
 
-    const msg = `Hi ${name}, work: ${desc}, estimate ₹${est}`;
+    let cleanPhone = phone.replace(/\D/g, "");
 
-    window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`);
+    if (cleanPhone.length === 10) {
+      cleanPhone = "91" + cleanPhone;
+    }
+
+    const msg = `Hi ${name},
+
+Thank you for visiting RELIABLE COMPUTECH.
+
+Your job is scheduled and will be completed soon.
+
+We will notify you once the work is complete.`;
+
+    window.open(
+      `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
   }
 });
