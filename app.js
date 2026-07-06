@@ -176,7 +176,7 @@ const { error } = await sb.from("customers").insert([customer]);
   // =======================
   document.getElementById("addBtn").addEventListener("click", () => {
 
-  message.innerHTML = "";
+  
 
   const addSection = document.getElementById("addCustomerSection");
   const viewSection = document.getElementById("customerSection");
