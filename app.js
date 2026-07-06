@@ -154,7 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
   <button class="editBtn">✏️</button>
   <button class="saveBtn" style="display:none;">💾</button>
   <button class="deleteBtn">🗑️</button>
-  <button class="waBtn">💬</button>
+  <button class="waBtn">
+    <img src="whatsapp.png" alt="WhatsApp">
+</button>
   <button class="smsBtn">📩</button>
 </td>
         </tr>
