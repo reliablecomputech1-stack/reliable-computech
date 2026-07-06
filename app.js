@@ -273,12 +273,7 @@ row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forE
    if (!confirm("Delete this customer?")) return;
 
 // Ask password again before deleting
-const password = prompt("Enter Password");
 
-if (password !== APP_PASSWORD) {
-    alert("Wrong Password!");
-    return;
-}
 
     // 1. delete from DB FIRST (important)
     const { error: dbError } = await sb
