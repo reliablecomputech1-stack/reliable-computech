@@ -231,10 +231,11 @@ row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forE
     const row = e.target.closest("tr");
     const id = row.dataset.id;
 const updated = {
-  name: row.querySelector(".name").innerText,
-  contact: row.querySelector(".contact").innerText,
-  description: row.querySelector(".description").innerText,
-  status: row.querySelector(".status").innerText
+    name: row.querySelector(".name").innerText,
+    contact: row.querySelector(".contact").innerText,
+    description: row.querySelector(".description").innerText,
+    status: row.querySelector(".status").innerText,
+    estimate: row.querySelector(".estimate").innerText
 };
 
     const { error } = await sb.from("customers").update(updated).eq("id", id);
