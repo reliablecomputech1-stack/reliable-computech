@@ -49,8 +49,7 @@ async function compressImage(file, maxWidth = 1200, quality = 0.8) {
 document.addEventListener("DOMContentLoaded", () => 
 {
     const form = document.getElementById("customerForm");
-    const message = document.getElementById("message");
-    document.getElementById("photo").addEventListener("change", function () {
+const message = document.getElementById("message") || { innerHTML: "" };    document.getElementById("photo").addEventListener("change", function () {
     const fileNameSpan = document.getElementById("fileName");
 
     if (this.files.length > 0) {
