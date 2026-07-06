@@ -299,6 +299,8 @@ row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forE
     const row = e.target.closest("tr");
 const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
     const name = row.querySelector(".name").innerText;
+    const description = row.querySelector(".description").innerText;
+const estimate = row.querySelector(".estimate").innerText;
 
     let cleanPhone = phone.replace(/\D/g, "");
     if (cleanPhone.length === 10) {
