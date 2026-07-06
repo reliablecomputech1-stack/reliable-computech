@@ -166,3 +166,20 @@ body {
     display: inline-block;
     vertical-align: middle;
 }
+.actionCell {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* make buttons uniform */
+.actionCell button {
+    width: 45px;
+    height: 38px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
