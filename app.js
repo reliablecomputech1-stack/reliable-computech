@@ -227,7 +227,7 @@ document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("editBtn")) {
     const row = e.target.closest("tr");
 
-row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forEach(td => td.contentEditable = "true");
+row.querySelectorAll(".name, .description, .status, .estimate")  .forEach(td => td.contentEditable = "true");
     row.querySelector(".editBtn").style.display = "none";
     row.querySelector(".saveBtn").style.display = "inline-block";
   }
