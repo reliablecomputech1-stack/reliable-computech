@@ -1,6 +1,7 @@
 const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  async function loadCustomers() {
 const APP_PASSWORD = "rctech321";
 
 function verifyPassword() {
@@ -120,7 +121,7 @@ const { error } = await sb.from("customers").insert([customer]);
   // =======================
   // LOAD CUSTOMERS
   // =======================
-  async function loadCustomers() {
+
 
     const { data, error } = await sb
       .from("customers")
@@ -237,8 +238,9 @@ row.querySelectorAll(".name, .contact, .description, .status, .estimate")  .forE
     const id = row.dataset.id;
 const updated = {
   name: row.querySelector(".name").innerText,
-  phone: row.querySelector(".contact").innerText,
-  description: row.querySelector(".description").innerText,
+phone: row.querySelector(".contact .contact-line")
+  .innerText.replace("Phone:", "")
+  .trim(),  description: row.querySelector(".description").innerText,
   status: row.querySelector(".status").innerText,
   estimate: row.querySelector(".estimate").innerText
 };
