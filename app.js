@@ -141,9 +141,13 @@ const customer = {
         <tr data-id="${customer.id}" data-file="${customer.photo_file || ""}">
           <td><img src="${customer.photo_url}" class="customer-photo"></td>
           <td class="name">${customer.name || ""}</td>
-          <td class="email">${customer.email || ""}</td>
-          <td class="phone">${customer.phone || ""}</td>
-          <td class="address">${customer.address || ""}</td>
+          <td class="contact">
+  📞 ${customer.phone || ""}<br>
+  📧 ${customer.email || ""}<br>
+  📍 ${customer.address || ""}
+</td>
+<td class="description">${customer.description || ""}</td>
+<td class="status">${customer.status || ""}</td>
       <td class="actionCell">
 
   <button class="editBtn">✏️</button>
@@ -211,8 +215,7 @@ document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("editBtn")) {
     const row = e.target.closest("tr");
 
-    row.querySelectorAll(".name, .email, .phone, .address")
-      .forEach(td => td.contentEditable = "true");
+row.querySelectorAll(".name, .description, .status")      .forEach(td => td.contentEditable = "true");
 
     row.querySelector(".editBtn").style.display = "none";
     row.querySelector(".saveBtn").style.display = "inline-block";
@@ -225,10 +228,9 @@ document.addEventListener("click", async (e) => {
 
     const updated = {
       name: row.querySelector(".name").innerText,
-      email: row.querySelector(".email").innerText,
-      phone: row.querySelector(".phone").innerText,
-      address: row.querySelector(".address").innerText
-    };
+  description: row.querySelector(".description").innerText,
+  status: row.querySelector(".status").innerText
+};
 
     const { error } = await sb.from("customers").update(updated).eq("id", id);
 
