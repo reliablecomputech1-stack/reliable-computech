@@ -212,8 +212,10 @@ const { error } = await sb.from("customers").insert([customer]);
   }
 });
 
-  document.getElementById("searchInput").addEventListener("input", loadCustomers);
-});
+const searchInput = document.getElementById("searchInput");
+if (searchInput) {
+  searchInput.addEventListener("input", loadCustomers);
+}});
 
 
 // =======================
