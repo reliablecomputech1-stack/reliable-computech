@@ -1,7 +1,6 @@
 const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  async function loadCustomers() {
 const APP_PASSWORD = "rctech321";
 
 function verifyPassword() {
