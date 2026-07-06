@@ -89,11 +89,15 @@ let photoFile = document.getElementById("photo").files[0];
       
 const customer = {
   name: document.getElementById("name").value,
-  email: document.getElementById("email").value,
   phone: document.getElementById("phone").value,
+  email: document.getElementById("email").value,
   address: document.getElementById("address").value,
   description: document.getElementById("description").value,
   status: document.getElementById("status").value,
+  estimate: document.getElementById("estimate").value,
+  photo_url: photoUrl,
+  photo_file: fileName
+};
   photo_url: photoUrl,
   photo_file: fileName
 };
