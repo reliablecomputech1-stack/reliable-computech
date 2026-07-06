@@ -150,12 +150,13 @@ document.addEventListener("DOMContentLoaded", () => {
           <td class="description">${customer.description || ""}</td>
           <td class="status">${customer.status || ""}</td>
           <td class="estimate">${customer.estimate || ""}</td>
-          <td class="actionCell">
-            <button class="editBtn">✏️</button>
-            <button class="saveBtn" style="display:none;">💾</button>
-            <button class="deleteBtn">🗑️</button>
-            <button class="waBtn">💬</button>
-          </td>
+<td class="actionCell">
+  <button class="editBtn">✏️</button>
+  <button class="saveBtn" style="display:none;">💾</button>
+  <button class="deleteBtn">🗑️</button>
+  <button class="waBtn">💬</button>
+  <button class="smsBtn">📩</button>
+</td>
         </tr>
       `;
     });
