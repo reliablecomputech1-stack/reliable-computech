@@ -25,13 +25,24 @@ if (sessionStorage.getItem("loggedIn") !== "yes") {
 <button id="viewBtn">View Customers</button>
 <div id="addCustomerSection" style="display:none;">
 <form id="customerForm">
-    <input type="text" id="name" placeholder="Customer Name" required>
-   <input type="text" id="contact" placeholder="Contact (Phone / Email / Address)">
-<input type="text" id="description" placeholder="Description">
-<input type="text" id="status" placeholder="Status">
+
+    <div class="row">
+        <input type="text" id="name" placeholder="Customer Name" required>
+        <input type="email" id="email" placeholder="Email">
+    </div>
+
+    <div class="row">
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="address" placeholder="Address">
+    </div>
+
+    <input type="text" id="description" placeholder="Description">
+
+    <input type="text" id="status" placeholder="Status">
+
     <label for="photo" class="upload-btn">Upload Photo</label>
-<input type="file" id="photo" hidden>
-<span id="fileName">No file selected</span>
+    <input type="file" id="photo" hidden>
+    <span id="fileName">No file selected</span>
 
     <button type="submit">Save Customer</button>
 </form>
