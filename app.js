@@ -140,11 +140,7 @@ const customer = {
         <tr data-id="${customer.id}" data-file="${customer.photo_file || ""}">
           <td><img src="${customer.photo_url}" class="customer-photo"></td>
           <td class="name">${customer.name || ""}</td>
-          <td class="contact">
-  📞 ${customer.phone || ""}<br>
-  📧 ${customer.email || ""}<br>
-  📍 ${customer.address || ""}
-</td>
+          <td class="contact">${customer.contact || ""}</td>
 <td class="description">${customer.description || ""}</td>
 <td class="status">${customer.status || ""}</td>
       <td class="actionCell">
