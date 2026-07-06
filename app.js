@@ -295,7 +295,7 @@ row.querySelectorAll(".name, .description, .status")      .forEach(td => td.cont
   if (e.target.classList.contains("waBtn")) {
 
     const row = e.target.closest("tr");
-    const phone = row.querySelector(".phone").innerText;
+const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
     const name = row.querySelector(".name").innerText;
 
     let cleanPhone = phone.replace(/\D/g, "");
