@@ -159,7 +159,3 @@ body {
     margin-bottom: 8px;
 }
 
-.contact-line strong {
-    display: inline-block;
-    width: 70px;   /* Keeps Phone, Email and Address aligned */
-}
