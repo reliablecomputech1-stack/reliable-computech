@@ -194,8 +194,7 @@ const searchText = searchInput ? searchInput.value.toLowerCase() : "";
 
  document.getElementById("viewBtn").addEventListener("click", () => {
 
-  message.innerHTML = "";
-
+if (message) message.innerHTML = "";
   const addSection = document.getElementById("addCustomerSection");
   const viewSection = document.getElementById("customerSection");
 
