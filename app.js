@@ -88,13 +88,13 @@ let photoFile = document.getElementById("photo").files[0];
     }
       
 const customer = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      address: document.getElementById("address").value,
-      photo_url: photoUrl,
-      photo_file: fileName
-    };
+  name: document.getElementById("name").value,
+  contact: document.getElementById("contact").value,
+  description: document.getElementById("description").value,
+  status: document.getElementById("status").value,
+  photo_url: photoUrl,
+  photo_file: fileName
+};
 
     const { error } = await sb.from("customers").insert([customer]);
 
