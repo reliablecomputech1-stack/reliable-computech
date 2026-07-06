@@ -160,4 +160,8 @@ body {
     text-align: left;
     margin-bottom: 8px;
 }
-
+.waIcon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
