@@ -148,3 +148,18 @@ body {
 .contact-line:last-child {
     margin-bottom: 0;
 }
+.contact {
+    text-align: left;
+    vertical-align: top;
+    padding-left: 15px;
+}
+
+.contact-line {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.contact-line strong {
+    display: inline-block;
+    width: 70px;   /* Keeps Phone, Email and Address aligned */
+}
