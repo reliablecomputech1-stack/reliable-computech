@@ -311,9 +311,13 @@ const estimate = row.querySelector(".estimate").innerText;
 
 Thank you for visiting RELIABLE COMPUTECH.
 
-Your job is scheduled and will be completed soon.
+Your requested work of "${description}" will be completed soon.
 
-We will notify you once the work is complete.`;
+The estimated cost for this job is ₹${estimate}.
+
+We will notify you once the work is complete.
+
+Thank you for choosing RELIABLE COMPUTECH.`;
 
     window.open(
       `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
