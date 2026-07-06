@@ -153,6 +153,7 @@ const customer = {
 </td>
 <td class="description">${customer.description || ""}</td>
 <td class="status">${customer.status || ""}</td>
+<td class="estimate">${customer.estimate || ""}</td>
       <td class="actionCell">
 
   <button class="editBtn">✏️</button>
