@@ -181,7 +181,7 @@ body {
     padding: 0;
     margin: 0;
     border: none;
-    background: black !important;
+    background: #e0e0e0 !important;
     display: flex;
     align-items: center;
     justify-content: center;
