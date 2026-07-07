@@ -183,3 +183,27 @@ body {
     align-items: center;
     justify-content: center;
 }
+.actionCell {
+    display: grid;
+    grid-template-columns: repeat(2, 40px);
+    gap: 8px;
+    justify-content: center;
+}
+
+.actionCell button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionIcon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
