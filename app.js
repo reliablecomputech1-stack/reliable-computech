@@ -234,8 +234,8 @@ document.addEventListener("click", async (e) => {
     row.querySelectorAll(".name, .description, .status, .estimate")
       .forEach(td => td.contentEditable = "true");
 
-    row.querySelector(".editBtn").style.display = "none";
-    row.querySelector(".saveBtn").style.display = "inline-block";
+   row.querySelector(".editBtn").style.visibility = "hidden";
+row.querySelector(".saveBtn").style.visibility = "visible";
   }
 
   // SAVE
