@@ -154,13 +154,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <td class="actionCell">
 
-  <button class="editBtn">
-    <img src="edit.png" class="waIcon">
-  </button>
+  <div class="editSaveBox">
+    <button class="editBtn">
+      <img src="edit.png" class="waIcon">
+    </button>
 
-<button class="saveBtn" style="display:none; grid-column:1; grid-row:1;">
-    <img src="save.png" class="waIcon">
-  </button>
+    <button class="saveBtn" style="display:none;">
+      <img src="save.png" class="waIcon">
+    </button>
+  </div>
 
   <button class="deleteBtn">
     <img src="delete.png" class="waIcon">
