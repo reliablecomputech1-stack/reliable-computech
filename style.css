@@ -186,8 +186,15 @@ body {
     align-items: center;
     justify-content: center;
 }
-.editBtn,
-.saveBtn {
-    grid-column: 1;
-    grid-row: 1;
+
+.editSaveBox {
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.editSaveBox button {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
