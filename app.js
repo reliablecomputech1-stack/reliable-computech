@@ -152,24 +152,26 @@ document.addEventListener("DOMContentLoaded", () => {
           <td class="estimate">${customer.estimate || ""}</td>
 <td class="actionCell">
 
+<td class="actionCell">
+
   <button class="editBtn">
-    <img src="edit.png" class="actionIcon">
+    <img src="edit.png" class="waIcon">
   </button>
 
   <button class="saveBtn" style="display:none;">
-    <img src="save.png" class="actionIcon">
+    <img src="save.png" class="waIcon">
   </button>
 
   <button class="deleteBtn">
-    <img src="delete.png" class="actionIcon">
+    <img src="delete.png" class="waIcon">
   </button>
 
   <button class="waBtn">
-    <img src="whatsapp.png" class="actionIcon">
+    <img src="whatsapp.png" class="waIcon">
   </button>
 
   <button class="smsBtn">
-    <img src="sms.png" class="actionIcon">
+    <img src="sms.png" class="waIcon">
   </button>
 
 </td>
