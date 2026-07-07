@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <img src="edit.png" class="waIcon">
   </button>
 
-  <button class="saveBtn" style="display:none;">
+<button class="saveBtn" style="display:none; grid-column:1; grid-row:1;">
     <img src="save.png" class="waIcon">
   </button>
 
