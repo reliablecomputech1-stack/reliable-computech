@@ -8,20 +8,7 @@
 
 <body>
 
-  <script>
-    const APP_PASSWORD = "rctech321";
-
-    if (sessionStorage.getItem("loggedIn") !== "yes") {
-      let password = prompt("Enter Password");
-
-      while (password !== APP_PASSWORD) {
-        password = prompt("Wrong Password!\n\nEnter Password");
-      }
-
-      sessionStorage.setItem("loggedIn", "yes");
-    }
-  </script>
-
+ 
   <h1>RELIABLE COMPUTECH</h1>
 
   <button id="addBtn">Add Customer</button>
@@ -84,6 +71,34 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
+<div id="customPopup" class="popup-overlay">
+
+    <div class="popup-box">
+
+        <h3>RELIABLE COMPUTECH</h3>
+
+        <p id="popupMessage"></p>
+
+        <input 
+        id="popupPassword" 
+        type="password" 
+        placeholder="Enter Password">
+
+        <div class="popup-buttons">
+
+            <button id="popupCancel">
+                Cancel
+            </button>
+
+            <button id="popupOK">
+                OK
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
