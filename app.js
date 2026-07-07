@@ -7,29 +7,47 @@ function customPopup(message, mode = "alert") {
 
         const popup = document.getElementById("customPopup");
         const popupMessage = document.getElementById("popupMessage");
+        const popupPassword = document.getElementById("popupPassword");
         const okBtn = document.getElementById("popupOK");
         const cancelBtn = document.getElementById("popupCancel");
 
         popupMessage.innerText = message;
 
-        if (mode === "confirm") {
+        popupPassword.value = "";
+
+        if (mode === "password") {
+            popupPassword.style.display = "block";
             cancelBtn.style.display = "block";
-        } else {
+        }
+        else if (mode === "confirm") {
+            popupPassword.style.display = "none";
+            cancelBtn.style.display = "block";
+        }
+        else {
+            popupPassword.style.display = "none";
             cancelBtn.style.display = "none";
         }
 
         popup.style.display = "flex";
 
-
         okBtn.onclick = () => {
             popup.style.display = "none";
-            resolve(true);
-        };
 
+            if (mode === "password") {
+                resolve(popupPassword.value);
+            } else {
+                resolve(true);
+            }
+        };
 
         cancelBtn.onclick = () => {
             popup.style.display = "none";
-            resolve(false);
+
+            if (mode === "password") {
+                resolve(null);
+            } else {
+                resolve(false);
+            }
         };
 
     });
@@ -114,8 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .getPublicUrl(fileName);
 
       photoUrl = data.publicUrl;
-      alert("✅ Photo uploaded successfully");
-    }
+await customPopup("Photo uploaded successfully!");    }
 
     const customer = {
       name: document.getElementById("name").value,
@@ -290,8 +307,7 @@ row.querySelector(".saveBtn").style.display = "flex";
 
     if (error) {
       console.log("UPDATE ERROR:", error);
-      alert(error.message);
-      return;
+await customPopup(error.message);      return;
     }
 
     row.querySelectorAll(".name, .contact, .description, .status, .estimate")
@@ -309,16 +325,18 @@ await customPopup("Saved successfully!");  }
     const fileName = row?.dataset?.file;
 
     if (!id) {
-      alert("Invalid row id");
-      return;
+await customPopup("Invalid row id");      return;
     }
 
 if (!(await customPopup("Delete this customer?", "confirm"))) return;
-    const password = prompt("Enter Password");
+   const password = await customPopup("Enter Password", "password");
 
-    if (password !== APP_PASSWORD) {
-await customPopup("Wrong Password!");      return;
-    }
+if (password === null) return;
+
+if (password !== APP_PASSWORD) {
+    await customPopup("Wrong Password!");
+    return;
+}
 
     const { error: dbError } = await sb
       .from("customers")
