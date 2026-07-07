@@ -151,13 +151,27 @@ document.addEventListener("DOMContentLoaded", () => {
           <td class="status">${customer.status || ""}</td>
           <td class="estimate">${customer.estimate || ""}</td>
 <td class="actionCell">
-  <button class="editBtn">✏️</button>
-  <button class="saveBtn" style="display:none;">💾</button>
-  <button class="deleteBtn">🗑️</button>
+
+  <button class="editBtn">
+    <img src="edit.png" class="actionIcon">
+  </button>
+
+  <button class="saveBtn" style="display:none;">
+    <img src="save.png" class="actionIcon">
+  </button>
+
+  <button class="deleteBtn">
+    <img src="delete.png" class="actionIcon">
+  </button>
+
   <button class="waBtn">
-        <img src="whatsapp.png" class="waIcon">
-</button>
-  <button class="smsBtn">📩</button>
+    <img src="whatsapp.png" class="actionIcon">
+  </button>
+
+  <button class="smsBtn">
+    <img src="sms.png" class="actionIcon">
+  </button>
+
 </td>
         </tr>
       `;
