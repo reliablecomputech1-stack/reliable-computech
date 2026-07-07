@@ -300,8 +300,7 @@ row.querySelector(".saveBtn").style.display = "flex";
   row.querySelector(".editBtn").style.visibility = "visible";
 row.querySelector(".saveBtn").style.display = "none";
 
-    alert("Saved!");
-  }
+await customPopup("Saved successfully!");  }
 
   // DELETE
   if (e.target.classList.contains("deleteBtn")) {
@@ -314,13 +313,11 @@ row.querySelector(".saveBtn").style.display = "none";
       return;
     }
 
-    if (!confirm("Delete this customer?")) return;
-
+if (!(await customPopup("Delete this customer?", "confirm"))) return;
     const password = prompt("Enter Password");
 
     if (password !== APP_PASSWORD) {
-      alert("Wrong Password!");
-      return;
+await customPopup("Wrong Password!");      return;
     }
 
     const { error: dbError } = await sb
@@ -346,8 +343,7 @@ row.querySelector(".saveBtn").style.display = "none";
     }
 
     row.remove();
-    alert("Deleted successfully!");
-  }
+await customPopup("Deleted successfully!");  }
 
   // WHATSAPP
   if (e.target.classList.contains("waBtn")) {
