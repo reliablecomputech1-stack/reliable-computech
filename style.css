@@ -163,47 +163,26 @@ body {
 .waIcon {
     width: 14px;
     height: 14px;
-    display: inline-block;
-    vertical-align: middle;
-}
-.actionCell {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
+    object-fit: contain;
+    display: block;
 }
 
-/* make buttons uniform */
-.actionCell button {
-    width: 45px;
-    height: 38px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .actionCell {
     display: grid;
     grid-template-columns: repeat(2, 40px);
     gap: 8px;
     justify-content: center;
+    align-items: center;
 }
 
 .actionCell button {
     width: 40px;
     height: 40px;
     padding: 0;
+    margin: 0;
     border: none;
-    background: transparent;
+    background: black !important;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-.actionIcon {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
