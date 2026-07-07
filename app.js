@@ -1,7 +1,40 @@
 const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+function customPopup(message, mode = "alert") {
 
+    return new Promise((resolve) => {
+
+        const popup = document.getElementById("customPopup");
+        const popupMessage = document.getElementById("popupMessage");
+        const okBtn = document.getElementById("popupOK");
+        const cancelBtn = document.getElementById("popupCancel");
+
+        popupMessage.innerText = message;
+
+        if (mode === "confirm") {
+            cancelBtn.style.display = "block";
+        } else {
+            cancelBtn.style.display = "none";
+        }
+
+        popup.style.display = "flex";
+
+
+        okBtn.onclick = () => {
+            popup.style.display = "none";
+            resolve(true);
+        };
+
+
+        cancelBtn.onclick = () => {
+            popup.style.display = "none";
+            resolve(false);
+        };
+
+    });
+
+}
 
 
 async function compressImage(file, maxWidth = 1200, quality = 0.8) {
