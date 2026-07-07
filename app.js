@@ -262,8 +262,8 @@ row.querySelector(".saveBtn").style.visibility = "visible";
     row.querySelectorAll(".name, .contact, .description, .status, .estimate")
       .forEach(td => td.contentEditable = "false");
 
-    row.querySelector(".editBtn").style.display = "inline-block";
-    row.querySelector(".saveBtn").style.display = "none";
+   row.querySelector(".editBtn").style.visibility = "visible";
+row.querySelector(".saveBtn").style.visibility = "hidden";
 
     alert("Saved!");
   }
