@@ -186,3 +186,8 @@ body {
     align-items: center;
     justify-content: center;
 }
+.editBtn,
+.saveBtn {
+    grid-column: 1;
+    grid-row: 1;
+}
