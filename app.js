@@ -288,7 +288,7 @@ document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("editBtn")) {
     const row = e.target.closest("tr");
 
-    row.querySelectorAll(".name, .description, .status, .estimate")
+    row.querySelectorAll(".name, .contact, .description, .status, .estimate")
       .forEach(td => td.contentEditable = "true");
 
  row.querySelector(".editBtn").style.visibility = "hidden";
