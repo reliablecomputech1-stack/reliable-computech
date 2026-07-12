@@ -178,12 +178,7 @@ Address: ${document.getElementById("address").value}`,
 
     const searchText = document.getElementById("searchInput").value.toLowerCase();
 
-    const filtered = data.filter(c =>
-      (c.name || "").toLowerCase().includes(searchText) ||
-      (c.phone || "").toLowerCase().includes(searchText) ||
-      (c.email || "").toLowerCase().includes(searchText) ||
-      (c.address || "").toLowerCase().includes(searchText)
-    );
+   
 
     document.getElementById("customerCountHeading").innerText =
       `Customers (${filtered.length})`;
