@@ -1,7 +1,7 @@
 const APP_PASSWORD = "rctech321";
 
 const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "admin";
+const ADMIN_PASSWORD = "rcadmin10#$";
 
 const USER_USERNAME = "rctech";
 const USER_PASSWORD = "rctech321";
