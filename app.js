@@ -119,7 +119,11 @@ async function compressImage(file, maxWidth = 1200, quality = 0.8) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {  document.getElementById("addBtn").style.display = "inline-block";
+
+  if (sessionStorage.getItem("role") === "admin") {
+      document.getElementById("viewBtn").style.display = "inline-block";
+  }
   const form = document.getElementById("customerForm");
   const message = document.getElementById("message");
 
