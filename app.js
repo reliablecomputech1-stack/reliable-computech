@@ -385,8 +385,7 @@ await customPopup("Deleted successfully!");  }
   if (e.target.classList.contains("waBtn")) {
     const row = e.target.closest("tr");
 
-    const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
-    const name = row.querySelector(".name").innerText;
+const phone = row.querySelector(".phone").innerText.trim();    const name = row.querySelector(".name").innerText;
   const description = row.querySelector(".description").innerText;
 const estimate = row.querySelector(".estimate").innerText;
 
@@ -417,8 +416,7 @@ Thank you for choosing RELIABLE COMPUTECH.`;
 if (e.target.classList.contains("smsBtn")) {
   const row = e.target.closest("tr");
 
-  const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
-  const name = row.querySelector(".name").innerText;
+const phone = row.querySelector(".phone").innerText.trim();  const name = row.querySelector(".name").innerText;
   const description = row.querySelector(".description").innerText;
   const estimate = row.querySelector(".estimate").innerText;
 
@@ -451,8 +449,7 @@ const callBtn = e.target.closest(".callBtn");
 if (callBtn) {
   const row = callBtn.closest("tr");
 
-  const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
-
+const phone = row.querySelector(".phone").innerText.trim();
   let cleanPhone = phone.replace(/\D/g, "");
 
   if (!cleanPhone) {
