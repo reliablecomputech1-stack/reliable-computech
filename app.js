@@ -367,7 +367,7 @@ console.log("Password accepted");
       .from("customers")
       .delete()
       .eq("id", id);
-
+console.log("Delete error:", dbError);
     if (dbError) {
       console.log("DELETE DB ERROR:", dbError);
       alert(dbError.message);
