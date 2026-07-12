@@ -340,8 +340,9 @@ await customPopup("Saved successfully!");  }
   const deleteBtn = e.target.closest(".deleteBtn");
 
 if (deleteBtn) {
-    const id = row?.dataset?.id;
-    const fileName = row?.dataset?.file;
+    const row = deleteBtn.closest("tr");
+    const id = row.dataset.id;
+    const fileName = row.dataset.file;
 
     if (!id) {
 await customPopup("Invalid row id");      return;
