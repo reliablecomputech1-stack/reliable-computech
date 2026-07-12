@@ -354,7 +354,7 @@ await customPopup("Invalid row id");      return;
 
 if (!(await customPopup("Delete this customer?", "confirm"))) return;
    const password = await customPopup("Enter Password", "password");
-
+console.log("Password entered:", password);
 if (password === null) return;
 
 if (password !== APP_PASSWORD) {
