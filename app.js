@@ -135,16 +135,17 @@ document.addEventListener("DOMContentLoaded", () => {
 await customPopup("Photo uploaded successfully!");    }
 
     const customer = {
-      name: document.getElementById("name").value,
-      phone: document.getElementById("phone").value,
-      email: document.getElementById("email").value,
-      address: document.getElementById("address").value,
-      description: document.getElementById("description").value,
-      status: document.getElementById("status").value,
-      estimate: document.getElementById("estimate").value,
-      photo_url: photoUrl,
-      photo_file: fileName
-    };
+  name: document.getElementById("name").value,
+  contact:
+`Phone: ${document.getElementById("phone").value}
+Email: ${document.getElementById("email").value}
+Address: ${document.getElementById("address").value}`,
+  description: document.getElementById("description").value,
+  status: document.getElementById("status").value,
+  estimate: document.getElementById("estimate").value,
+  photo_url: photoUrl,
+  photo_file: fileName
+};
 
     const { error } = await sb.from("customers").insert([customer]);
 
