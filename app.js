@@ -289,9 +289,13 @@ document.addEventListener("click", async (e) => {
   // EDIT
   if (e.target.classList.contains("editBtn")) {
     const row = e.target.closest("tr");
-
-    row.querySelectorAll(".name, .contact, .description, .status, .estimate")
-      .forEach(td => td.contentEditable = "true");
+row.querySelector(".name").contentEditable = "true";
+row.querySelector(".phone").contentEditable = "true";
+row.querySelector(".email").contentEditable = "true";
+row.querySelector(".address").contentEditable = "true";
+row.querySelector(".description").contentEditable = "true";
+row.querySelector(".status").contentEditable = "true";
+row.querySelector(".estimate").contentEditable = "true";
 
  row.querySelector(".editBtn").style.visibility = "hidden";
 row.querySelector(".saveBtn").style.display = "flex";
