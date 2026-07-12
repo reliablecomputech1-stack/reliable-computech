@@ -337,8 +337,9 @@ row.querySelector(".saveBtn").style.display = "none";
 await customPopup("Saved successfully!");  }
 
   // DELETE
-  if (e.target.classList.contains("deleteBtn")) {
-    const row = e.target.closest("tr");
+  const deleteBtn = e.target.closest(".deleteBtn");
+
+if (deleteBtn) {
     const id = row?.dataset?.id;
     const fileName = row?.dataset?.file;
 
