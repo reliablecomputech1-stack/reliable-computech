@@ -222,9 +222,15 @@ await customPopup("Photo uploaded successfully!");    }
     <img src="whatsapp.png" class="waIcon">
   </button>
 
-  <button class="smsBtn">
-    <img src="sms.png" class="waIcon">
-  </button>
+ <button class="smsBtn">
+  <img src="sms.png" class="waIcon">
+</button>
+
+<button class="callBtn">
+  <img src="call.png" class="waIcon">
+</button>
+
+</td>
 
 </td>
         </tr>
