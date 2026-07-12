@@ -358,10 +358,11 @@ console.log("Password entered:", password);
 if (password === null) return;
 
 if (password !== APP_PASSWORD) {
+    
     await customPopup("Wrong Password!");
     return;
 }
-
+console.log("Password accepted");
     const { error: dbError } = await sb
       .from("customers")
       .delete()
