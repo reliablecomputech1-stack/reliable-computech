@@ -307,10 +307,10 @@ row.querySelector(".saveBtn").style.display = "flex";
     const id = row.dataset.id;
 const updated = {
   name: row.querySelector(".name").innerText,
-  contact:
-`Phone: ${row.querySelector(".phone").innerText}
-Email: ${row.querySelector(".email").innerText}
-Address: ${row.querySelector(".address").innerText}`,
+ contact:
+`Phone: ${row.querySelector(".phone").innerText.replace(/^Phone:\s*/i, "")}
+Email: ${row.querySelector(".email").innerText.replace(/^Email:\s*/i, "")}
+Address: ${row.querySelector(".address").innerText.replace(/^Address:\s*/i, "")}`,
   description: row.querySelector(".description").innerText,
   status: row.querySelector(".status").innerText,
   estimate: row.querySelector(".estimate").innerText
