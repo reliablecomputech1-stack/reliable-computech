@@ -177,7 +177,13 @@ Address: ${document.getElementById("address").value}`,
     customerBody.innerHTML = "";
 
     const searchText = document.getElementById("searchInput").value.toLowerCase();
+const filtered = data.filter(c =>
+  (c.name || "").toLowerCase().includes(searchText) ||
+  (c.contact || "").toLowerCase().includes(searchText)
+);
 
+document.getElementById("customerCountHeading").innerText =
+  `Customers (${filtered.length})`;
    
 
     document.getElementById("customerCountHeading").innerText =
