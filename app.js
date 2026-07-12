@@ -386,6 +386,7 @@ console.log("Delete error:", dbError);
     }
 
     row.remove();
+    console.log("Row removed");
 await customPopup("Deleted successfully!");  }
 
   // WHATSAPP
