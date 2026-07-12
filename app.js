@@ -1,4 +1,33 @@
 const APP_PASSWORD = "rctech321";
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "admin";
+
+
+// LOGIN SYSTEM
+if (!sessionStorage.getItem("loggedIn")) {
+
+    let username = prompt("Enter Username:");
+    let password = prompt("Enter Password:");
+
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("role", "admin");
+
+    } 
+    else if (username && password) {
+
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("role", "user");
+
+    } 
+    else {
+
+        alert("Login Failed");
+        location.reload();
+
+    }
+}
 const SUPABASE_URL = "https://qrskdnptjtjsuvuutvdz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3g4NKbhvEduQXGfCnUQnUw_zwPpUNtf";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
