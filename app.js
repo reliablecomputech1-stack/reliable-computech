@@ -340,7 +340,10 @@ await customPopup("Saved successfully!");  }
   // DELETE
   const deleteBtn = e.target.closest(".deleteBtn");
 
-if (deleteBtn) {
+if (deleteBtn)
+{
+    console.log("Delete button clicked");
+
     const row = deleteBtn.closest("tr");
     const id = row.dataset.id;
     const fileName = row.dataset.file;
