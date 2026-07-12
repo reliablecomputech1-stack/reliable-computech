@@ -192,11 +192,7 @@ await customPopup("Photo uploaded successfully!");    }
         <tr data-id="${customer.id}" data-file="${customer.photo_file || ""}">
           <td><img src="${customer.photo_url}" class="customer-photo"></td>
           <td class="name">${customer.name || ""}</td>
-          <td class="contact">
-            <div class="contact-line"><strong>Phone:</strong> ${customer.phone || ""}</div>
-            <div class="contact-line"><strong>Email:</strong> ${customer.email || ""}</div>
-            <div class="contact-line"><strong>Address:</strong> ${customer.address || ""}</div>
-          </td>
+          <td class="contact">${customer.contact || ""}</td>
           <td class="description">${customer.description || ""}</td>
           <td class="status">${customer.status || ""}</td>
           <td class="estimate">${customer.estimate || ""}</td>
