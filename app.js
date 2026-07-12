@@ -305,14 +305,16 @@ row.querySelector(".saveBtn").style.display = "flex";
   if (e.target.classList.contains("saveBtn")) {
     const row = e.target.closest("tr");
     const id = row.dataset.id;
-
-    const updated = {
-      name: row.querySelector(".name").innerText,
-      contact: row.querySelector(".contact").innerText,
-      description: row.querySelector(".description").innerText,
-      status: row.querySelector(".status").innerText,
-      estimate: row.querySelector(".estimate").innerText
-    };
+const updated = {
+  name: row.querySelector(".name").innerText,
+  contact:
+`Phone: ${row.querySelector(".phone").innerText}
+Email: ${row.querySelector(".email").innerText}
+Address: ${row.querySelector(".address").innerText}`,
+  description: row.querySelector(".description").innerText,
+  status: row.querySelector(".status").innerText,
+  estimate: row.querySelector(".estimate").innerText
+};
 
     const { error } = await sb.from("customers").update(updated).eq("id", id);
 
@@ -321,8 +323,13 @@ row.querySelector(".saveBtn").style.display = "flex";
 await customPopup(error.message);      return;
     }
 
-    row.querySelectorAll(".name, .contact, .description, .status, .estimate")
-      .forEach(td => td.contentEditable = "false");
+ row.querySelector(".name").contentEditable = "false";
+row.querySelector(".phone").contentEditable = "false";
+row.querySelector(".email").contentEditable = "false";
+row.querySelector(".address").contentEditable = "false";
+row.querySelector(".description").contentEditable = "false";
+row.querySelector(".status").contentEditable = "false";
+row.querySelector(".estimate").contentEditable = "false";
 
   row.querySelector(".editBtn").style.visibility = "visible";
 row.querySelector(".saveBtn").style.display = "none";
