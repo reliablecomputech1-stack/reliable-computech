@@ -232,7 +232,6 @@ await customPopup("Photo uploaded successfully!");    }
 
 </td>
 
-</td>
         </tr>
       `;
     });
@@ -428,7 +427,31 @@ We will notify you once the work is complete.
 
 Thank you for choosing RELIABLE COMPUTECH.`;
 
-  window.location.href =
-    `sms:${cleanPhone}?body=${encodeURIComponent(msg)}`;
+ window.location.href =
+  `sms:${cleanPhone}?body=${encodeURIComponent(msg)}`;
 }
-  });
+
+// CALL
+// CALL
+const callBtn = e.target.closest(".callBtn");
+
+if (callBtn) {
+  const row = callBtn.closest("tr");
+
+  const phone = row.querySelector(".contact").innerText.match(/\d+/)?.[0] || "";
+
+  let cleanPhone = phone.replace(/\D/g, "");
+
+  if (!cleanPhone) {
+    await customPopup("No phone number available!");
+    return;
+  }
+
+  if (cleanPhone.length === 10) {
+    cleanPhone = "91" + cleanPhone;
+  }
+
+  window.location.href = `tel:+${cleanPhone}`;
+}
+
+});
