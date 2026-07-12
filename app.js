@@ -1,6 +1,10 @@
 const APP_PASSWORD = "rctech321";
+
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "admin";
+
+const USER_USERNAME = "rctech";
+const USER_PASSWORD = "rctech321";
 
 
 // LOGIN SYSTEM
@@ -15,7 +19,7 @@ if (!sessionStorage.getItem("loggedIn")) {
         sessionStorage.setItem("role", "admin");
 
     } 
-    else if (username && password) {
+    else if (username === USER_USERNAME && password === USER_PASSWORD) {
 
         sessionStorage.setItem("loggedIn", "true");
         sessionStorage.setItem("role", "user");
@@ -23,7 +27,7 @@ if (!sessionStorage.getItem("loggedIn")) {
     } 
     else {
 
-        alert("Login Failed");
+        alert("Wrong Username or Password");
         location.reload();
 
     }
