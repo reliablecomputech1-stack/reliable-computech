@@ -363,6 +363,7 @@ if (password !== APP_PASSWORD) {
     return;
 }
 console.log("Password accepted");
+    console.log("Deleting ID:", id);
     const { error: dbError } = await sb
       .from("customers")
       .delete()
