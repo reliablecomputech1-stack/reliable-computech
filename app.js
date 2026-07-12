@@ -194,7 +194,11 @@ document.getElementById("customerCountHeading").innerText =
         <tr data-id="${customer.id}" data-file="${customer.photo_file || ""}">
           <td><img src="${customer.photo_url}" class="customer-photo"></td>
           <td class="name">${customer.name || ""}</td>
-          <td class="contact">${customer.contact || ""}</td>
+          <td class="contact">
+  <div><strong>Phone:</strong> <span class="phone">${(customer.contact || "").match(/Phone:\s*(.*)/)?.[1]?.split("\n")[0] || ""}</span></div>
+  <div><strong>Email:</strong> <span class="email">${(customer.contact || "").match(/Email:\s*(.*)/)?.[1]?.split("\n")[0] || ""}</span></div>
+  <div><strong>Address:</strong> <span class="address">${(customer.contact || "").match(/Address:\s*(.*)/)?.[1] || ""}</span></div>
+</td>
           <td class="description">${customer.description || ""}</td>
           <td class="status">${customer.status || ""}</td>
           <td class="estimate">${customer.estimate || ""}</td>
